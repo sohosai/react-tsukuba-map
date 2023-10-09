@@ -1,14 +1,26 @@
 import TsukubaMap from "./TsukubaMap.tsx";
+import useTsukubaMap from "../hooks/useTsukubaMap.tsx";
 
 export default {
   component: TsukubaMap,
   title: "TsukubaMap",
 };
 
-const Template = (props) => <TsukubaMap {...props} />
+type ArgsType = {
+  mapWidth: string;
+  mapHeight: string;
+}
 
-export const Default = Template.bind({})
+const Template = (props: ArgsType) => {
+  const {MapComponent} = useTsukubaMap({
+    mapWidth: props.mapWidth,
+    mapHeight: props.mapHeight
+  });
+  return <MapComponent/>;
+}
+
+export const Default = Template.bind({});
 Default.args = {
-  width: "800px",
-  height: "500px",
+  mapWidth: "800px",
+  mapHeight: "500px",
 };
