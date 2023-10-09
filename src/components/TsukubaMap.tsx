@@ -16,7 +16,18 @@ const Wrapper = styled.div<{ width: string, height: string }>`
 type Props = {
   width: string;
   height: string;
+
+  /**
+   * デフォルトの表示座標
+   * デフォルト：石の広場
+   */
   defaultPosition?: LatLngTuple,
+
+  /**
+   * マップオプション
+   * デフォルト値は次を参照
+   * @see defaultMapOption
+   */
   option?: MapOption;
 } & ComponentPropsWithRef<'div'>;
 
