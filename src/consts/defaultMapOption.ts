@@ -1,3 +1,5 @@
+import {MapOption} from "../types";
+
 /**
  * デフォルトのマップオプション
  * @see MapOption
