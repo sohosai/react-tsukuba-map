@@ -48,8 +48,10 @@ export default function TsukubaMap({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={option?.tileServer ?? defaultMapOption.tileServer as string}/>
 
+        {/* 各種レンダラ */}
         <RouteRenderer route={guidanceService.route}/>
 
+        {/* マップユーティリティ */}
         <CenterLocationUpdater latlng={locationService.getComputedCenterLocation()}/>
         <EventConsumer onClick={eventHandler.onClick} onDrag={eventHandler.onDrag}/>
       </MapContainer>
