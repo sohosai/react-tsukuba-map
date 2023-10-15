@@ -1,4 +1,4 @@
-import {LatLngTuple, Route, RouteDirection} from "../../types";
+import {LatLngTuple, Route, RouteDirection} from "../types";
 import React, {Dispatch, useCallback, useContext, useState} from "react";
 
 export type MapContext = {

@@ -1,7 +1,7 @@
 import {ExtraSpot, GuidanceEventHandler, LatLngTuple, MapEventHandler, MapOption, Marker, Route, Spot} from "../types";
 import React, {useMemo} from "react";
 import TsukubaMap from "../components/TsukubaMap.tsx";
-import {MapContextProvider} from "../components/contexts/MapContext.tsx";
+import {MapContextProvider} from "../contexts/MapContext.tsx";
 
 type ArgsType = {
     mapWidth: string;

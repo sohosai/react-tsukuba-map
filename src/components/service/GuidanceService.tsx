@@ -1,4 +1,4 @@
-import {useMapContext} from "../contexts/MapContext.tsx";
+import {useMapContext} from "../../contexts/MapContext.tsx";
 import {GuidanceEventHandler, Route} from "../../types";
 import {useEffect, useState} from "react";
 import {getDistance, getNearbyNodeIndex, getRouteDirection, isOnPath} from "../../features/route.ts";

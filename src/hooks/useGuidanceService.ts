@@ -1,7 +1,7 @@
 import {GuidanceService, LatLngTuple, Route, RouteDirection, RouteNode} from "../types";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {getNearbyNodeIndex, getRouteDirection, isOnPath, searchRoute} from "../features/route.ts";
-import {MapContext} from "../components/contexts/MapContext.tsx";
+import {MapContext} from "../contexts/MapContext.tsx";
 
 type Args = {
   context: MapContext | null;

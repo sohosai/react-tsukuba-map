@@ -1,6 +1,6 @@
 import {LeafletEventHandlerFn, LeafletMouseEventHandlerFn} from "leaflet";
 import {Dispatch} from "react";
-import {MapContext} from "../components/contexts/MapContext.tsx";
+import {MapContext} from "../contexts/MapContext.tsx";
 /**
  * マップオプション
  */

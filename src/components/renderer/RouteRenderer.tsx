@@ -1,5 +1,5 @@
 import {Polyline} from "react-leaflet";
-import {useMapContext} from "../contexts/MapContext.tsx";
+import {useMapContext} from "../../contexts/MapContext.tsx";
 
 export default function RouteRenderer() {
   const context = useMapContext();

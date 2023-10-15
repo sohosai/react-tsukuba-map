@@ -1,6 +1,6 @@
 import {LatLngTuple, LocationService} from "../types";
 import {useCallback, useEffect} from "react";
-import {useMapContext} from "../components/contexts/MapContext.tsx";
+import {useMapContext} from "../contexts/MapContext.tsx";
 
 type ReturnType = {
   locationService: LocationService;

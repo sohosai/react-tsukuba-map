@@ -2,7 +2,7 @@ import {useMemo} from "react";
 import L from "leaflet";
 import currentLocationIcon from "../../icons/cloc.svg";
 import {Marker} from "react-leaflet";
-import {useMapContext} from "../contexts/MapContext.tsx";
+import {useMapContext} from "../../contexts/MapContext.tsx";
 
 export default function CurrentLocationMarker() {
     const context = useMapContext();

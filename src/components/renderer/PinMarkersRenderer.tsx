@@ -1,6 +1,6 @@
 import LocationMarker from "../marker/LocationMarker.tsx";
 import markerIcon from "../../icons/marker.svg";
-import {useMapContext} from "../contexts/MapContext.tsx";
+import {useMapContext} from "../../contexts/MapContext.tsx";
 import {useMemo} from "react";
 
 type Props = {

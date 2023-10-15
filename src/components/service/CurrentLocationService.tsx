@@ -1,7 +1,7 @@
 import {useMap} from "react-leaflet";
 import {useEffect} from "react";
 import {LocationEvent} from "leaflet";
-import {useMapContext} from "../contexts/MapContext.tsx";
+import {useMapContext} from "../../contexts/MapContext.tsx";
 
 export default function CurrentLocationService() {
     const map = useMap();
