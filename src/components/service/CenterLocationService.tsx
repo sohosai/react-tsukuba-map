@@ -2,9 +2,9 @@ import {LatLngTuple} from "../../types";
 import {useState} from "react";
 import {useMap} from "react-leaflet";
 
-export default function CenterLocationUpdater ({latlng}: {latlng: LatLngTuple | null}) {
+export default function CenterLocationService ({latlng}: {latlng: LatLngTuple | null}) {
   if (latlng == null) {
-    return <></>;
+    return null;
   }
 
   const [previousCenter, setPreviousCenter] = useState<LatLngTuple>([0, 0]);
@@ -13,5 +13,5 @@ export default function CenterLocationUpdater ({latlng}: {latlng: LatLngTuple | 
     map.panTo(latlng);
     setPreviousCenter(latlng);
   }
-  return <></>;
+  return null;
 };

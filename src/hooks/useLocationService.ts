@@ -1,5 +1,6 @@
 import {LatLngTuple, LocationService} from "../types";
 import {useCallback, useState} from "react";
+import {useMapContext} from "../components/contexts/MapContext.tsx";
 
 type ReturnType = {
   locationService: LocationService;
@@ -9,28 +10,10 @@ type ReturnType = {
  * 現在地情報サービス
  */
 export default function useLocationService(): ReturnType {
-  const [currentLocation, _setCurrentLocation] = useState<LatLngTuple | null>(null);
-  const [isNavigatorServiceEnabled, setNavigatorServiceEnabled] = useState<boolean>(false);
-  const [focusOnCurrentLocation, _setFocusOnCurrentLocation] = useState<boolean>(false);
+  const context = useMapContext();
+  const [focusOnCurrentLocation, _setFocusOnCurrentLocation] = useState<boolean>(true);
 
-  const setCurrentLocation = useCallback((location: LatLngTuple | null) => _setCurrentLocation(location), [currentLocation]);
   const setFocusOnCurrentLocation = useCallback((value: boolean) => _setFocusOnCurrentLocation(value), [focusOnCurrentLocation]);
-
-  /**
-   * 現在地サービスを有効化する
-   */
-  const setupCurrentLocationService = (): void => {
-    if (!navigator.geolocation) {
-      setNavigatorServiceEnabled(false);
-      
-    }
-
-    navigator.geolocation.watchPosition((data) => {
-      setCurrentLocation([data.coords.latitude, data.coords.longitude]);
-    }, null, {
-      enableHighAccuracy: true
-    });
-  }
 
   /**
    * マップの中心点がユーザにより変更されたときに発火
@@ -40,24 +23,20 @@ export default function useLocationService(): ReturnType {
   }
 
   /**
-   * 現在地に貼り付けるかどうかや現在地情報などからマップの中心点を求める
+   * 現在地に追従させるかどうかや現在地情報などからマップの中心点を求める
    */
   const getComputedCenterLocation = useCallback((): LatLngTuple | null => {
     return focusOnCurrentLocation
-      ? currentLocation != null
-        ? currentLocation
-        : null
-      : null;
-  }, [currentLocation, focusOnCurrentLocation]);
+        ? context.currentLocation != null
+            ? context.currentLocation
+            : null
+        : null;
+  }, [context.currentLocation, focusOnCurrentLocation]);
 
   return {
     locationService: {
-      currentLocation,
-      isNavigatorServiceEnabled,
       focusOnCurrentLocation,
       setFocusOnCurrentLocation,
-      setCurrentLocation,
-      setupCurrentLocationService,
       onCenterLocationChanged,
       getComputedCenterLocation,
     }

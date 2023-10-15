@@ -1,14 +1,17 @@
 import {Polyline} from "react-leaflet";
-import {Route} from "../../types";
+import {useMapContext} from "../contexts/MapContext.tsx";
 
-type Props = {
-  route: Route | null;
-}
-export default function RouteRenderer({route}: Props) {
+export default function RouteRenderer() {
+  const context = useMapContext();
+
   return <>
-    {route && <Polyline
-        positions={route.nodes.map((node) => node.position).slice(0, route.currentNodeIndex)}/>}
-    {route && <Polyline
-        positions={route.nodes.map((node) => node.position).slice(route.currentNodeIndex, route.nodes.length)}/>}
+    { context.route &&
+        <>
+          {/* TODO 現在地以降と以前で色を分ける */}
+            <Polyline
+                pathOptions={{weight: 8, color: "#FF6F00"}}
+                positions={context.route.nodes.map((node) => node.position)}/>
+        </>
+    }
   </>
 }

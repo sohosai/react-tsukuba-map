@@ -1,5 +1,6 @@
 import {LeafletEventHandlerFn, LeafletMouseEventHandlerFn} from "leaflet";
-
+import {Dispatch} from "react";
+import {MapContext} from "../components/contexts/MapContext.tsx";
 /**
  * マップオプション
  */
@@ -23,6 +24,11 @@ type MapOption = {
    * タイルサーバ
    */
   tileServer?: string;
+
+  /**
+   * 現在地表示を有効化するかどうか
+   */
+  enableCurrentLocationService?: boolean;
 }
 
 /**
@@ -31,10 +37,32 @@ type MapOption = {
 type LatLngTuple = [number, number];
 
 /**
+ * 方角タイプ
+ */
+type RouteDirectionType =
+    | 'top'
+    | 'right'
+    | 'left'
+    | 'top-right'
+    | 'top-left'
+    | 'bottom-right'
+    | 'bottom-left'
+    | 'end'
+    | 'unknown';
+
+/**
+ * 方角
+ */
+type RouteDirection = {
+  type: RouteDirectionType;
+  name: string;
+}
+
+/**
  * 経路を表すノード
  */
 type RouteNode = {
-  nodeName: number;
+  nodeName: string;
   position: LatLngTuple;
 }
 
@@ -45,35 +73,66 @@ type Route = {
   nodes: RouteNode[];
   startNode: RouteNode;
   endNode: RouteNode;
-  currentNode: RouteNode;
-  currentNodeIndex: number;
 }
 
 /**
  * 経路案内サービス
  */
 type GuidanceService = {
-  beginGuidanceMode: (destPosition: LatLngTuple) => Promise<void>;
+  beginGuidanceMode: (destLocation: LatLngTuple) => Promise<void>;
   stopGuidanceMode: VoidFunction;
-  isGuidanceMode: boolean;
+  isGuidanceMode: () => boolean;
+  isGuidanceServiceEnabled: () => boolean;
   route: Route | null;
+  currentNodeIndex: number| null;
+  direction: RouteDirection | null;
 }
 
 type ExportedLocationService = {
-  currentLocation: LatLngTuple | null;
-  isNavigatorServiceEnabled: boolean;
   focusOnCurrentLocation: boolean;
   setFocusOnCurrentLocation: (value: boolean) => void;
 }
 
 type LocationService = {
-  setupCurrentLocationService: () => void;
-  setCurrentLocation: (value: LatLngTuple | null) => void;
   onCenterLocationChanged: () => void;
   getComputedCenterLocation: () => LatLngTuple | null;
 } & ExportedLocationService;
 
+type Pin = {
+  id: string;
+  location: LatLngTuple;
+}
+
+/**
+ * マーカー
+ */
+type Marker = {
+  icon: string;
+  name: string;
+  location: LatLngTuple;
+  offset?: LatLngTuple;
+} & Pin;
+
 type MapEventHandler = {
   onClick: LeafletMouseEventHandlerFn;
-  onDrag: LeafletEventHandlerFn;
+  onClickMarker: (marker: Marker) => void;
+  onDragStart: VoidFunction;
+  onDragEnd: VoidFunction;
+}
+
+type GuidanceEventHandler = {
+  onGuidanceFinish?: VoidFunction;
+  onRouteDirectionChange?: (direction: RouteDirection) => void;
+  onReSearchRoute?: VoidFunction;
+}
+
+/**
+ * 経路探索
+ */
+type SearchRouteResult = {
+  from: LatLngTuple;
+  to: LatLngTuple;
+  distance: number;
+  course: Array<LatLngTuple>;
+  ids: Array<string>;
 }

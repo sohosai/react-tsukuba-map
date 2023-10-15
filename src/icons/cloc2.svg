@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" id="_レイヤー_1" data-name="レイヤー 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 192 192">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#_名称未設定グラデーション_21);
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #2962ff;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+    <linearGradient id="_名称未設定グラデーション_21" data-name="名称未設定グラデーション 21" x1="96" y1="11.98" x2="96" y2="162" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cce0f4" stop-opacity="0"/>
+      <stop offset=".04" stop-color="#bdd4f5" stop-opacity=".06"/>
+      <stop offset=".15" stop-color="#96b6f7" stop-opacity=".23"/>
+      <stop offset=".26" stop-color="#749cf9" stop-opacity=".38"/>
+      <stop offset=".38" stop-color="#5887fb" stop-opacity=".49"/>
+      <stop offset=".51" stop-color="#4376fd" stop-opacity=".59"/>
+      <stop offset=".65" stop-color="#346bfe" stop-opacity=".65"/>
+      <stop offset=".8" stop-color="#2b64fe" stop-opacity=".69"/>
+      <stop offset=".99" stop-color="#2962ff" stop-opacity=".7"/>
+    </linearGradient>
+  </defs>
+  <polygon class="cls-1" points="1 11.98 52.02 161.78 140 162 191 12 1 11.98"/>
+  <g>
+    <circle class="cls-3" cx="96.33" cy="144.34" r="47" transform="translate(-47.9 47.85) rotate(-22.5)"/>
+    <path class="cls-2" d="m96.33,98.34c25.36,0,46,20.64,46,46s-20.64,46-46,46-46-20.64-46-46,20.64-46,46-46m0-2c-26.51,0-48,21.49-48,48s21.49,48,48,48,48-21.49,48-48-21.49-48-48-48h0Z"/>
+  </g>
+  <circle class="cls-2" cx="96.33" cy="144.34" r="35.75"/>
+</svg>

@@ -1,37 +1,48 @@
-import {ExportedLocationService, GuidanceService, LatLngTuple, MapEventHandler, MapOption} from "../types";
-import React from "react";
+import {GuidanceEventHandler, LatLngTuple, MapEventHandler, MapOption, Marker, Route} from "../types";
+import React, {useMemo} from "react";
 import TsukubaMap from "../components/TsukubaMap.tsx";
-import useGuidanceService from "./useGuidanceService.ts";
-import useLocationService from "./useLocationService.ts";
+import {MapContextProvider} from "../components/contexts/MapContext.tsx";
 
 type ArgsType = {
-  mapWidth: string;
-  mapHeight: string;
+    mapWidth: string;
+    mapHeight: string;
 
-  /**
-   * デフォルトの表示座標
-   * デフォルト：石の広場
-   */
-  defaultCenterLocation?: LatLngTuple;
+    /**
+     * デフォルトの表示座標
+     * デフォルト：石の広場
+     */
+    defaultCenterLocation?: LatLngTuple;
 
-  /**
-   * マップオプション
-   * デフォルト値は次を参照
-   * @see defaultMapOption
-   */
-  option?: MapOption;
+    /**
+     * マップオプション
+     * デフォルト値は次を参照
+     * @see defaultMapOption
+     */
+    option?: MapOption;
 
-  /**
-   * マップクリック時のイベントハンドラ
-   * @param latlng
-   */
-  onMapClick?: (latlng: LatLngTuple) => void;
+    /**
+     * マップイベントハンドラ
+     */
+    eventHandler?: MapEventHandler;
+
+    guidanceEventHandler?: GuidanceEventHandler;
+
+    /**
+     * 現在位置変更時のイベントハンドラ
+     * @param value
+     */
+    onCurrentLocationChange?: (value: GeolocationPosition) => void;
+
+    /**
+     * 静的マーカー
+     */
+    markers?: Marker[];
+
+    route?: Route | null;
 }
 
 type ReturnType = {
-  guidanceService: GuidanceService;
-  locationService: ExportedLocationService;
-  MapComponent: () => React.ReactNode;
+    MapComponent: () => React.ReactNode;
 }
 
 /**
@@ -39,29 +50,21 @@ type ReturnType = {
  * @param args
  */
 export default function useTsukubaMap(args: ArgsType): ReturnType {
-  const {locationService} = useLocationService();
-  const {guidanceService} = useGuidanceService();
-  const eventHandler: MapEventHandler = {
-    onClick: args.onMapClick
-      ? (e) => args.onMapClick!([e.latlng.lat, e.latlng.lng])
-      : () => {},
-    onDrag: locationService.onCenterLocationChanged
-  }
+    const eventHandler = useMemo(() => {
+        return {
+            ...(args.eventHandler ?? {})
+        }
+    }, [args.eventHandler]);
 
-  return {
-    locationService: {
-      currentLocation: locationService.currentLocation,
-      isNavigatorServiceEnabled: locationService.isNavigatorServiceEnabled,
-      focusOnCurrentLocation: locationService.focusOnCurrentLocation,
-      setFocusOnCurrentLocation: locationService.setFocusOnCurrentLocation
-    },
-    guidanceService,
-    MapComponent: () => (
-      <TsukubaMap width={args.mapWidth} height={args.mapHeight} option={args.option}
-                  defaultCenterLocation={args.defaultCenterLocation}
-                  guidanceService={guidanceService} locationService={locationService}
-                  eventHandler={eventHandler}
-      />
-    )
-  }
+    return {
+        MapComponent: () => (
+            <MapContextProvider>
+                <TsukubaMap width={args.mapWidth} height={args.mapHeight} option={args.option}
+                            defaultCenterLocation={args.defaultCenterLocation}
+                            eventHandler={eventHandler} markers={args.markers} route={args.route}
+                            guidanceEventHandler={args.guidanceEventHandler}
+                />
+            </MapContextProvider>
+        )
+    }
 }
