@@ -18,7 +18,7 @@ type ReturnType = {
  */
 export default function useGuidanceService({
                                                context,
-                                               onGuidanceFinish = () => {},
+                                               /* onGuidanceFinish = () => {}, */
                                                onReSearchRoute = () => {},
                                            }: Args): ReturnType {
   const [currentNodeIndex, setCurrentNodeIndex] = useState<number>(0);

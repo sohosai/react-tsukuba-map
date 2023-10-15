@@ -110,7 +110,7 @@ type Marker = {
 
 type MapEventHandler = {
   onClick: LeafletMouseEventHandlerFn;
-  onClickMarker: (marker: Marker) => void;
+  onClickMarker: (id: string) => void;
   onDragStart: VoidFunction;
   onDragEnd: VoidFunction;
   onFocusingStatusChange: (value: boolean) => void;
@@ -121,6 +121,24 @@ type GuidanceEventHandler = {
   onRouteDirectionChange: (direction: RouteDirection) => void;
   onReSearchRoute: VoidFunction;
 }
+
+type PolygonStyle = {
+  color: string;
+  borderColor: string;
+}
+
+type Spot = {
+  name: string;
+  style: PolygonStyle;
+  permanent?: boolean;
+  icon?: L.Icon;
+}
+
+type ExtraSpot = {
+  id: string;
+  center?: LatLngTuple;
+  polygon: LatLngTuple[];
+} & Spot;
 
 /**
  * 経路探索

@@ -6,7 +6,7 @@ import {ComponentPropsWithRef} from "react";
 import {MapContainer, TileLayer} from "react-leaflet";
 import L from 'leaflet';
 import defaultMapOption from "../consts/defaultMapOption.ts";
-import {GuidanceEventHandler, LatLngTuple, MapEventHandler, MapOption, Marker, Route} from "../types";
+import {ExtraSpot, GuidanceEventHandler, LatLngTuple, MapEventHandler, MapOption, Marker, Route, Spot} from "../types";
 import RouteRenderer from "./renderer/RouteRenderer.tsx";
 import spots from "../consts/spots.ts";
 import EventService from "./service/EventService.tsx";
@@ -18,6 +18,7 @@ import CenterLocationService from "./service/CenterLocationService.tsx";
 import LocationMarkersRenderer from "./renderer/LocationMarkersRenderer.tsx";
 import PinMarkersRenderer from "./renderer/PinMarkersRenderer.tsx";
 import RouteService from "./RouteService.tsx";
+import PolygonRenderer from "./renderer/PolygonRenderer.tsx";
 
 const Wrapper = styled.div<{ width: string, height: string }>`
   width: ${(props) => props.width};
@@ -38,6 +39,8 @@ type Props = {
     defaultCenterLocation?: LatLngTuple;
     option?: MapOption;
     markers?: Marker[];
+    renderSpots?: {[spotName: string]: Spot};
+    extraSpots?: ExtraSpot[];
     route?: Route | null;
     focusOnCurrentLocation?: boolean;
     eventHandler?: Partial<MapEventHandler>;
@@ -51,6 +54,8 @@ export default function TsukubaMap({
                                        option = {},
                                        markers = [],
                                        route,
+                                       renderSpots,
+                                       extraSpots,
                                        focusOnCurrentLocation = true,
                                        eventHandler = {},
                                        guidanceEventHandler = {},
@@ -83,6 +88,7 @@ export default function TsukubaMap({
                     url={option?.tileServer ?? defaultMapOption.tileServer as string}/>
 
                 {/* 各種レンダラ */}
+                <PolygonRenderer renderSpots={renderSpots} extraSpots={extraSpots} onClick={eventHandler?.onClickMarker}/>
                 <RouteRenderer/>
                 <LocationMarkersRenderer markers={markers}/>
                 <PinMarkersRenderer/>

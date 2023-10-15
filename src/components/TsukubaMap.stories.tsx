@@ -20,18 +20,9 @@ const Template = (props: ArgsType) => {
   const {MapComponent} = useTsukubaMap({
     mapWidth: props.mapWidth,
     mapHeight: props.mapHeight,
+    renderSpots: {"1a": {name: "1A棟", permanent: true, style: {color: "red", borderColor: "blue"}}},
     route
   });
-
-  /*
-  useEffect(() => {
-    if (locationService.currentLocation && !guidanceService.isGuidanceMode) {
-      (async () => {
-        // await guidanceService.beginGuidanceMode(spots["石の広場"]);
-      })();
-    }
-  }, [locationService.currentLocation]);
-   */
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((loc) => {

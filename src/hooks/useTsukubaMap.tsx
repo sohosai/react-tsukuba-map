@@ -1,4 +1,4 @@
-import {GuidanceEventHandler, LatLngTuple, MapEventHandler, MapOption, Marker, Route} from "../types";
+import {ExtraSpot, GuidanceEventHandler, LatLngTuple, MapEventHandler, MapOption, Marker, Route, Spot} from "../types";
 import React, {useMemo} from "react";
 import TsukubaMap from "../components/TsukubaMap.tsx";
 import {MapContextProvider} from "../components/contexts/MapContext.tsx";
@@ -42,6 +42,16 @@ type ArgsType = {
     markers?: Marker[];
 
     /**
+     * 描画するスポットと描画スタイル
+     */
+    renderSpots?: {[spotName: string]: Spot};
+
+    /**
+     * 追加で描画するポリゴンのリスト
+     */
+    extraSpots?: ExtraSpot[];
+
+    /**
      * ルート
      */
     route?: Route | null;
@@ -71,8 +81,8 @@ export default function useTsukubaMap(args: ArgsType): ReturnType {
         MapComponent: () => (
             <MapContextProvider>
                 <TsukubaMap width={args.mapWidth} height={args.mapHeight} option={args.option}
-                            defaultCenterLocation={args.defaultCenterLocation}
-                            eventHandler={eventHandler} markers={args.markers} route={args.route}
+                            defaultCenterLocation={args.defaultCenterLocation} renderSpots={args.renderSpots}
+                            eventHandler={eventHandler} markers={args.markers} route={args.route} extraSpots={args.extraSpots}
                             guidanceEventHandler={args.guidanceEventHandler} focusOnCurrentLocation={args.focusOnCurrentLocation}
                 />
             </MapContextProvider>
