@@ -88,10 +88,10 @@ export default function TsukubaMap({
                     url={option?.tileServer ?? defaultMapOption.tileServer as string}/>
 
                 {/* 各種レンダラ */}
-                <PolygonRenderer renderSpots={renderSpots} extraSpots={extraSpots} onClick={eventHandler?.onClickMarker}/>
                 <RouteRenderer/>
-                <LocationMarkersRenderer markers={markers}/>
-                <PinMarkersRenderer/>
+                <LocationMarkersRenderer markers={markers} onClick={eventHandler?.onClickMarker}/>
+                <PinMarkersRenderer onClick={eventHandler?.onClickMarker}/>
+                <PolygonRenderer renderSpots={renderSpots} extraSpots={extraSpots} onClick={eventHandler?.onClickMarker}/>
 
                 {/* 各種マーカー */}
                 <CurrentLocationMarker />
