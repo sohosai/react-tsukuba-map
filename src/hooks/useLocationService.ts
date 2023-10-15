@@ -1,5 +1,5 @@
 import {LatLngTuple, LocationService} from "../types";
-import {useCallback, useState} from "react";
+import {useCallback, useEffect} from "react";
 import {useMapContext} from "../components/contexts/MapContext.tsx";
 
 type ReturnType = {
@@ -9,34 +9,43 @@ type ReturnType = {
 /**
  * 現在地情報サービス
  */
-export default function useLocationService(): ReturnType {
+type Args = {
+  focusOnCurrentLocation: boolean;
+  onFocusingStatusChange?: (value: boolean) => void;
+}
+export default function useLocationService({focusOnCurrentLocation, onFocusingStatusChange}: Args): ReturnType {
   const context = useMapContext();
-  const [focusOnCurrentLocation, _setFocusOnCurrentLocation] = useState<boolean>(true);
 
-  const setFocusOnCurrentLocation = useCallback((value: boolean) => _setFocusOnCurrentLocation(value), [focusOnCurrentLocation]);
+  useEffect(() => {
+    context.setFocusOnCurrentLocation(focusOnCurrentLocation);
+  }, [focusOnCurrentLocation]);
+
+  useEffect(() => {
+    if (onFocusingStatusChange) {
+      onFocusingStatusChange(context.focusOnCurrentLocation);
+    }
+  }, [context.focusOnCurrentLocation]);
 
   /**
    * マップの中心点がユーザにより変更されたときに発火
    */
   const onCenterLocationChanged = () => {
-    setFocusOnCurrentLocation(false);
+    context.setFocusOnCurrentLocation(false);
   }
 
   /**
    * 現在地に追従させるかどうかや現在地情報などからマップの中心点を求める
    */
   const getComputedCenterLocation = useCallback((): LatLngTuple | null => {
-    return focusOnCurrentLocation
+    return context.focusOnCurrentLocation
         ? context.currentLocation != null
             ? context.currentLocation
             : null
         : null;
-  }, [context.currentLocation, focusOnCurrentLocation]);
+  }, [context.currentLocation, context.focusOnCurrentLocation]);
 
   return {
     locationService: {
-      focusOnCurrentLocation,
-      setFocusOnCurrentLocation,
       onCenterLocationChanged,
       getComputedCenterLocation,
     }

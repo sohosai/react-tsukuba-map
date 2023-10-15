@@ -39,6 +39,7 @@ type Props = {
     option?: MapOption;
     markers?: Marker[];
     route?: Route | null;
+    focusOnCurrentLocation?: boolean;
     eventHandler?: Partial<MapEventHandler>;
     guidanceEventHandler?: Partial<GuidanceEventHandler>;
 } & ComponentPropsWithRef<'div'>;
@@ -50,11 +51,15 @@ export default function TsukubaMap({
                                        option = {},
                                        markers = [],
                                        route,
+                                       focusOnCurrentLocation = true,
                                        eventHandler = {},
                                        guidanceEventHandler = {},
                                        ...props
                                    }: Props) {
-    const {locationService} = useLocationService();
+    const {locationService} = useLocationService({
+        focusOnCurrentLocation,
+        onFocusingStatusChange: eventHandler?.onFocusingStatusChange
+    });
 
     const _eventHandler: Partial<MapEventHandler> = {
         ...eventHandler,

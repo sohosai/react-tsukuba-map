@@ -8,6 +8,9 @@ export type MapContext = {
     pins: LatLngTuple[];
     setPins: Dispatch<LatLngTuple[]>;
 
+    focusOnCurrentLocation: boolean;
+    setFocusOnCurrentLocation: Dispatch<boolean>;
+
     route: Route | null;
     setRoute: Dispatch<Route | null>;
 
@@ -23,6 +26,8 @@ const defaultMapContext: MapContext = {
     setCurrentLocation: () => undefined,
     pins: [],
     setPins: () => undefined,
+    focusOnCurrentLocation: true,
+    setFocusOnCurrentLocation: () => undefined,
     route: null,
     setRoute: () => undefined,
     direction: null,
@@ -45,12 +50,15 @@ const context = (): MapContext => {
     const [route, setRoute] = useMemoizedState<Route | null>(defaultMapContext.route);
     const [direction, setDirection] = useMemoizedState<RouteDirection | null>(defaultMapContext.direction);
     const [currentNodeIndex, setCurrentNodeIndex] = useMemoizedState<number | null>(defaultMapContext.currentNodeIndex);
+    const [focusOnCurrentLocation, setFocusOnCurrentLocation] = useMemoizedState<boolean>(defaultMapContext.focusOnCurrentLocation);
 
     return {
         currentLocation,
         setCurrentLocation,
         pins,
         setPins,
+        focusOnCurrentLocation,
+        setFocusOnCurrentLocation,
         route,
         setRoute,
         direction,

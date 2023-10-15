@@ -88,15 +88,10 @@ type GuidanceService = {
   direction: RouteDirection | null;
 }
 
-type ExportedLocationService = {
-  focusOnCurrentLocation: boolean;
-  setFocusOnCurrentLocation: (value: boolean) => void;
-}
-
 type LocationService = {
   onCenterLocationChanged: () => void;
   getComputedCenterLocation: () => LatLngTuple | null;
-} & ExportedLocationService;
+};
 
 type Pin = {
   id: string;
@@ -118,12 +113,13 @@ type MapEventHandler = {
   onClickMarker: (marker: Marker) => void;
   onDragStart: VoidFunction;
   onDragEnd: VoidFunction;
+  onFocusingStatusChange: (value: boolean) => void;
 }
 
 type GuidanceEventHandler = {
-  onGuidanceFinish?: VoidFunction;
-  onRouteDirectionChange?: (direction: RouteDirection) => void;
-  onReSearchRoute?: VoidFunction;
+  onGuidanceFinish: VoidFunction;
+  onRouteDirectionChange: (direction: RouteDirection) => void;
+  onReSearchRoute: VoidFunction;
 }
 
 /**

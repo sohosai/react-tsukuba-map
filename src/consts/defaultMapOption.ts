@@ -5,7 +5,7 @@ import {MapOption} from "../types";
  * @see MapOption
  */
 const defaultMapOption: MapOption = {
-  initialZoom: 13,
+  initialZoom: 19,
   displayZoomControl: false,
   enableZoomingWithWheel: true,
   tileServer: "https://{s}.tile.openstreetmap.jp/{z}/{x}/{y}.png",

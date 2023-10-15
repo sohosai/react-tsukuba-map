@@ -25,6 +25,9 @@ type ArgsType = {
      */
     eventHandler?: MapEventHandler;
 
+    /**
+     * 経路案内イベントハンドラ
+     */
     guidanceEventHandler?: GuidanceEventHandler;
 
     /**
@@ -38,7 +41,15 @@ type ArgsType = {
      */
     markers?: Marker[];
 
+    /**
+     * ルート
+     */
     route?: Route | null;
+
+    /**
+     * 現在地に焦点を当てるかどうか
+     */
+    focusOnCurrentLocation?: boolean;
 }
 
 type ReturnType = {
@@ -62,7 +73,7 @@ export default function useTsukubaMap(args: ArgsType): ReturnType {
                 <TsukubaMap width={args.mapWidth} height={args.mapHeight} option={args.option}
                             defaultCenterLocation={args.defaultCenterLocation}
                             eventHandler={eventHandler} markers={args.markers} route={args.route}
-                            guidanceEventHandler={args.guidanceEventHandler}
+                            guidanceEventHandler={args.guidanceEventHandler} focusOnCurrentLocation={args.focusOnCurrentLocation}
                 />
             </MapContextProvider>
         )
