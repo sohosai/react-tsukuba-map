@@ -118,7 +118,7 @@ type MapEventHandler = {
 
 type GuidanceEventHandler = {
   onGuidanceFinish: VoidFunction;
-  onRouteDirectionChange: (direction: RouteDirection) => void;
+  onRouteStatusChange: (direction: RouteDirection, distance: number) => void;
   onReSearchRoute: VoidFunction;
 }
 

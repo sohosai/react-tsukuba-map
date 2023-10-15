@@ -17,7 +17,7 @@ import CurrentLocationService from "./service/CurrentLocationService.tsx";
 import CenterLocationService from "./service/CenterLocationService.tsx";
 import LocationMarkersRenderer from "./renderer/LocationMarkersRenderer.tsx";
 import PinMarkersRenderer from "./renderer/PinMarkersRenderer.tsx";
-import RouteService from "./RouteService.tsx";
+import GuidanceService from "./service/GuidanceService.tsx";
 import PolygonRenderer from "./renderer/PolygonRenderer.tsx";
 
 const Wrapper = styled.div<{ width: string, height: string }>`
@@ -100,7 +100,7 @@ export default function TsukubaMap({
                 <CenterLocationService latlng={locationService.getComputedCenterLocation()}/>
                 <CurrentLocationService/>
                 <EventService eventHandler={_eventHandler}/>
-                <RouteService route={route} eventHandler={guidanceEventHandler}/>
+                <GuidanceService route={route} eventHandler={guidanceEventHandler}/>
             </MapContainer>
         </Wrapper>
     )

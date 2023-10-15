@@ -1,15 +1,15 @@
-import {useMapContext} from "./contexts/MapContext.tsx";
-import {GuidanceEventHandler, Route} from "../types";
+import {useMapContext} from "../contexts/MapContext.tsx";
+import {GuidanceEventHandler, Route} from "../../types";
 import {useEffect, useState} from "react";
-import {getNearbyNodeIndex, getRouteDirection, isOnPath} from "../features/route.ts";
-import {createRoute} from "../features/guidance.ts";
+import {getDistance, getNearbyNodeIndex, getRouteDirection, isOnPath} from "../../features/route.ts";
+import {createRoute} from "../../features/guidance.ts";
 
 type Props = {
     route?: Route | null;
     eventHandler?: Partial<GuidanceEventHandler>;
 }
 
-export default function RouteService({route, eventHandler = {}}: Props) {
+export default function GuidanceService({route, eventHandler = {}}: Props) {
     const context = useMapContext();
     const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(0);
 
@@ -30,7 +30,7 @@ export default function RouteService({route, eventHandler = {}}: Props) {
     // 位置情報更新時の処理
     useEffect(() => {
         // 案内モードでない、または前回更新時より3秒経っていなければ処理しない
-        if (!route || new Date().getTime() - lastUpdatedAt < 3000 || context.currentLocation == null) {
+        if (!route || new Date().getTime() - lastUpdatedAt < 2000 || context.currentLocation == null) {
             return undefined;
         }
 
@@ -50,7 +50,13 @@ export default function RouteService({route, eventHandler = {}}: Props) {
                 }
             }
 
-            context.setDirection(getRouteDirection(0, r.nodes.map((node) => node.nodeName)));
+            const direction = getRouteDirection(newCurrentNodeIndex, r.nodes.map((node) => node.nodeName));
+            const distance = getDistance(r.nodes[newCurrentNodeIndex].position, r.endNode.position);
+            if (eventHandler?.onRouteStatusChange) {
+                eventHandler.onRouteStatusChange(direction, distance);
+            }
+
+            context.setDirection(direction);
             context.setCurrentNodeIndex(newCurrentNodeIndex);
             setLastUpdatedAt(new Date().getTime());
         })();
