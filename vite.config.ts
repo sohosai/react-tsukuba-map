@@ -7,11 +7,10 @@ export default defineConfig({
   plugins: [react()],
   build: {
     emptyOutDir: false,
-    sourcemap: true,
     lib: {
       entry: resolve(__dirname, 'src/lib/index.ts'),
       name: 'ReactTsukubaMap',
-      fileName: 'react-tsukuba-map',
+      fileName: 'index',
     },
     rollupOptions: {
       external: ['react'], // バンドルしたくない依存関係を指定
