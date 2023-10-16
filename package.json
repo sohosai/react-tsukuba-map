@@ -1,6 +1,6 @@
 {
   "name": "@sohosai/react-tsukuba-map",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "type": "module",
   "license": "(MIT OR Apache-2.0)",
   "scripts": {
@@ -9,9 +9,10 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "files": ["distES"],
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "require": "./dist/index.umd.cjs",
@@ -25,9 +26,11 @@
     "type": "git",
     "url": "git://github.com/@sohosai/react-tsukuba-map.git"
   },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
   "dependencies": {
     "@datastructures-js/priority-queue": "^6.3.0",
-    "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1"
   },

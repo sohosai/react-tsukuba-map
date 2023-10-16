@@ -3,12 +3,14 @@
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "commonjs",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "skipLibCheck": true,
-    "emitDeclarationOnly": true,
     "sourceMap": true,
     "declaration": true,
-    "outDir": "./dist",
+    "declarationDir": "./dist/types",
+    "emitDeclarationOnly": true,
+    "declarationMap": true,
 
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
@@ -19,5 +21,6 @@
     "strict": true,
   },
   "include": ["src/**/*"],
+  "exclude": ["./**/dist"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
