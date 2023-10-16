@@ -1,6 +1,6 @@
 {
   "name": "@sohosai/react-tsukuba-map",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "type": "module",
   "license": "(MIT OR Apache-2.0)",
   "scripts": {
@@ -13,13 +13,6 @@
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.umd.js"
-    },
-    "./dist/style.css": "./dist/style.css"
-  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },

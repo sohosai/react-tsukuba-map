@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "outFile": "./dist/index",
+    "outDir": "./dist",
     "module": "ESNext",
     "moduleResolution": "node",
     "skipLibCheck": true,
