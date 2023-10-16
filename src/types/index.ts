@@ -1,10 +1,8 @@
-import {LeafletEventHandlerFn, LeafletMouseEventHandlerFn} from "leaflet";
-import {Dispatch} from "react";
-import {MapContext} from "../contexts/MapContext.tsx";
+import {LeafletMouseEventHandlerFn} from "leaflet";
 /**
  * マップオプション
  */
-type MapOption = {
+export type MapOption = {
   /**
    * デフォルトのズーム率
    */
@@ -34,12 +32,12 @@ type MapOption = {
 /**
  * 緯度経度
  */
-type LatLngTuple = [number, number];
+export type LatLngTuple = [number, number];
 
 /**
  * 方角タイプ
  */
-type RouteDirectionType =
+export type RouteDirectionType =
     | 'top'
     | 'right'
     | 'left'
@@ -53,7 +51,7 @@ type RouteDirectionType =
 /**
  * 方角
  */
-type RouteDirection = {
+export type RouteDirection = {
   type: RouteDirectionType;
   name: string;
 }
@@ -61,7 +59,7 @@ type RouteDirection = {
 /**
  * 経路を表すノード
  */
-type RouteNode = {
+export type RouteNode = {
   nodeName: string;
   position: LatLngTuple;
 }
@@ -69,7 +67,7 @@ type RouteNode = {
 /**
  * 経路探索オブジェクト
  */
-type Route = {
+export type Route = {
   nodes: RouteNode[];
   startNode: RouteNode;
   endNode: RouteNode;
@@ -78,7 +76,7 @@ type Route = {
 /**
  * 経路案内サービス
  */
-type GuidanceService = {
+export type GuidanceService = {
   beginGuidanceMode: (destLocation: LatLngTuple) => Promise<void>;
   stopGuidanceMode: VoidFunction;
   isGuidanceMode: () => boolean;
@@ -88,12 +86,12 @@ type GuidanceService = {
   direction: RouteDirection | null;
 }
 
-type LocationService = {
+export type LocationService = {
   onCenterLocationChanged: () => void;
   getComputedCenterLocation: () => LatLngTuple | null;
 };
 
-type Pin = {
+export type Pin = {
   id: string;
   location: LatLngTuple;
 }
@@ -101,14 +99,14 @@ type Pin = {
 /**
  * マーカー
  */
-type Marker = {
+export type Marker = {
   icon: string;
   name: string;
   location: LatLngTuple;
   offset?: LatLngTuple;
 } & Pin;
 
-type MapEventHandler = {
+export type MapEventHandler = {
   onClick: LeafletMouseEventHandlerFn;
   onClickMarker: (id: string) => void;
   onDragStart: VoidFunction;
@@ -116,25 +114,25 @@ type MapEventHandler = {
   onFocusingStatusChange: (value: boolean) => void;
 }
 
-type GuidanceEventHandler = {
+export type GuidanceEventHandler = {
   onGuidanceFinish: VoidFunction;
   onRouteStatusChange: (direction: RouteDirection, distance: number) => void;
   onReSearchRoute: VoidFunction;
 }
 
-type PolygonStyle = {
+export type PolygonStyle = {
   color: string;
   borderColor: string;
 }
 
-type Spot = {
+export type Spot = {
   name: string;
   style: PolygonStyle;
   permanent?: boolean;
   icon?: L.Icon;
 }
 
-type ExtraSpot = {
+export type ExtraSpot = {
   id: string;
   center?: LatLngTuple;
   polygon: LatLngTuple[];
@@ -143,7 +141,7 @@ type ExtraSpot = {
 /**
  * 経路探索
  */
-type SearchRouteResult = {
+export type SearchRouteResult = {
   from: LatLngTuple;
   to: LatLngTuple;
   distance: number;

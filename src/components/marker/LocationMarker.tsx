@@ -1,4 +1,4 @@
-import {Marker as IMarker} from "../../types/index"
+import {Marker as IMarker} from "../../types"
 import {Marker} from "react-leaflet";
 import L from "leaflet";
 import {useMemo} from "react";
