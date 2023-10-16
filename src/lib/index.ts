@@ -1,4 +1,2 @@
-import useTsukubaMap from "../hooks/useTsukubaMap";
-import {createRoute} from "../features/guidance";
-
-export { useTsukubaMap, createRoute };
+export * from "../hooks/useTsukubaMap";
+export * from "../features/guidance";

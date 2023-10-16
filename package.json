@@ -5,21 +5,14 @@
   "license": "(MIT OR Apache-2.0)",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc",
+    "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "files": ["dist"],
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/types/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs"
-    }
-  },
+  "types": "./dist/index.d.ts",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
