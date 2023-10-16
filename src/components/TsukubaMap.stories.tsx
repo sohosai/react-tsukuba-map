@@ -35,7 +35,7 @@ const Template = (props: ArgsType) => {
 }
 
 export const Default = Template.bind({});
-Default.args = {
+(Default as any).args = {
   mapWidth: "800px",
   mapHeight: "500px",
 };
