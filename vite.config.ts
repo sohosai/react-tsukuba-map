@@ -10,7 +10,8 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/lib/index.ts'),
       name: 'ReactTsukubaMap',
-      fileName: 'index',
+      fileName: (format) => `index.${format}.js`,
+      formats: ['es', 'umd'],
     },
     rollupOptions: {
       external: ['react'], // バンドルしたくない依存関係を指定
